@@ -1,21 +1,23 @@
-var githubhook = require('githubhook'),
-    servers = {
-        'hook': 'https://github.com/marco2git/superawesome.tv'
-    };
+var express = require('express'),  
+    http = require('http'),
+    app = express();
 
+app.set('port', process.env.PORT || 8080);
 
-var thishook = githubhook(9001, servers, function (err, payload) {
-    if (!err) {
-        var deploySh = require('child_process').spawn('sh', [ 'hook.sh' ], {
-            cwd: process.env.PWD
-        });
+app.post('/deploy/', function (req, res) {  
+     var spawn = require('child_process').spawn,
+        deploy = spawn('sh', [ './deploy.sh' ]);
 
-        deploySh.stdout.on('data', function(data) {
-            var buff = new Buffer(data);
-            console.log(buff.toString('utf8'));
-        });
-        console.log(payload); // payload is the JSON blob that github POSTs to the server
-    } else {
-        console.log(err);
-    }
+    deploy.stdout.on('data', function (data) {
+        console.log(''+data);
+    });
+
+    deploy.on('close', function (code) {
+        console.log('Github Hook superawesome.tv exited with code ' + code);
+    });
+    res.json(200, {message: 'Github Hook superawesome.tv received!'})
+});
+
+http.createServer(app).listen(app.get('port'), function(){  
+  console.log('Express server superawesome.tv listening for deployment on port ' + app.get('port'));
 });
