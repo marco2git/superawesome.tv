@@ -1,0 +1,13 @@
+{
+    "port": 8080,
+    "username": "marco2git",
+    "password": "m4rc02g1t",
+    "deploys": [{
+        "name": "Deploy webhook deploy",
+        "type": "github",
+        "repo": "https://github.com/marco2git/superawesome.tv.git",
+        "basepath": "/var/superawesome.tv",
+        "command": "git pull",
+        "branch": "master"
+    }]
+}
