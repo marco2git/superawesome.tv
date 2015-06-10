@@ -1,0 +1,10 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "express": "^4.12.4",
+    "mustache": "^2.1.0",
+    "mustache-express": "^1.2.1"
+  }
+}
