@@ -1,3 +1,3 @@
 cd /var/superawesome.tv
-git pull
+git pull origin master
 forever restart index.js
